@@ -75,7 +75,7 @@ namespace Types
       Console.WriteLine(cadena.GetType());
 
       // dynamic (Dynamic)
-      // Es un tipo de dato que representa una variable que puede cambiar de tipo en tiempo de ejecución
+      // Es un tipo de dato que representa una variable que puede cambiar de tipo en tiempo de ejecución  
       dynamic dinamico = "Hola mundo";
       Console.WriteLine(dinamico.GetType());
 
