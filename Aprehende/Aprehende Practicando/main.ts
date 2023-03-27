@@ -2,37 +2,55 @@
 
 import * as readline from 'readline';
 
-const obtenerInformacion = () => {
+// Función para validar una entrada que solo contiene letras
+const validarEntradaLetras = (entrada: string): boolean => /^[a-zA-Z]+$/.test(entrada);
+
+// Función para validar una entrada que solo contiene números
+const validarEntradaNumeros = (entrada: string): boolean => /^[0-9]+$/.test(entrada);
+
+// Función para hacer preguntas al usuario y mostrar los resultados
+const obtenerInformacion = (): void => {
   const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout
   });
 
-  rl.question('¿Cuál es tu nombre? ', (nombre) => {
-    if (!/^[a-zA-Z]+$/.test(nombre)) {
+  // Preguntar el nombre del usuario
+  rl.question('¿Cuál es tu nombre? ', (nombre: string) => {
+    if (!validarEntradaLetras(nombre)) {
       console.log('El nombre solo puede contener letras');
-      rl.close()
+      rl.close();
       return;
     }
-    rl.question('¿Cuál es tu edad? ', (edad) => {
-      if (!/^[0-9]+$/.test(edad)) {
+
+    // Preguntar la edad del usuario
+    rl.question('¿Cuál es tu edad? ', (edad: string) => {
+      if (!validarEntradaNumeros(edad)) {
         console.log('La edad solo puede contener números');
-        rl.close()
+        rl.close();
         return;
       }
-      rl.question('¿Cuál es tu ciudad? ', (ciudad) => {
-        if (!/^[a-zA-Z]+$/.test(ciudad)) {
+
+      // Preguntar la ciudad del usuario
+      rl.question('¿Cuál es tu ciudad? ', (ciudad: string) => {
+        if (!validarEntradaLetras(ciudad)) {
           console.log('La ciudad solo puede contener letras');
-          rl.close()
+          rl.close();
           return;
         }
+
+        // Mostrar los resultados
         console.log(`Hola ${nombre}, tienes ${edad} años y vives en ${ciudad}`);
         rl.close();
       });
     });
   });
 };
+
+// Llamar a la función para obtener la información del usuario
 obtenerInformacion();
+
+
 
 // Realiza un programa que pida al usuario dos números enteros y realice las operaciones aritméticas básicas, suma, resta, multiplicación y división luego muestra por pantalla de forma ordenada. 
 
