@@ -72,29 +72,22 @@ const pedirNumeros = (): void => {
 // not True = False
 
 const mostrarTablaVerdad = (): void => {
+  const a: boolean = true;
+  const b: boolean = false;
   console.log('AND');
-  let an = false && false;
-  console.log(`False and False = ${an}`);
-  an = false && true;
-  console.log(`False and True = ${an}`);
-  an = true && false;
-  console.log(`True and False = ${an}`);
-  an = true && true;
-  console.log(`True and True = ${an}`);
+  console.log(`${a} and ${a} = ${a && a}`);
+  console.log(`${a} and ${b} = ${a && b}`);
+  console.log(`${b} and ${a} = ${b && a}`);
+  console.log(`${b} and ${b} = ${b && b}`);
   console.log('OR');
-  let or = false || false;
-  console.log(`False or False = ${or}`);
-  or = false || true;
-  console.log(`False or True = ${or}`);
-  or = true || false;
-  console.log(`True or False = ${or}`);
-  or = true || true;
-  console.log(`True or True = ${or}`);
+  console.log(`${a} or ${a} = ${a || a}`);
+  console.log(`${a} or ${b} = ${a || b}`);
+  console.log(`${b} or ${a} = ${b || a}`);
+  console.log(`${b} or ${b} = ${b || b}`);
   console.log('NOT');
-  let not = !false;
-  console.log(`not False = ${not}`);
-  not = !true;
-  console.log(`not True = ${not}`);
+  console.log(`not ${a} = ${!a}`);
+  console.log(`not ${b} = ${!b}`);
+  
 };
 
 // mostrarTablaVerdad();
@@ -105,6 +98,74 @@ const mostrarTablaVerdad = (): void => {
 // 1 EL nombre de usuario se debe guardar en mayúsculas (No importa si el usuario lo escribe con minúsculas)
 // 2 El correo antes de guardarlo debe ser comprobado que cumple una estructura de correo es decir que contiene un @ y un .
 // 3 La contraseña solo puede ser máx de 6 dígitos
+
+
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+// Estructura de datos para almacenar los usuarios
+const usuarios: { [key: string]: { correo: string, contrasena: string } } = {};
+
+
+// Función para validar el correo electrónico
+function validarCorreo(correo: string): boolean {
+  const expReg = /\S+@\S+\.\S+/;
+  return expReg.test(correo);
+}
+
+// Función para validar la contraseña
+function validarContrasena(contrasena: string): boolean {
+  return contrasena.length <= 6;
+}
+
+// Función para registrar un usuario
+function registrarUsuario(): void {
+  rl.question('Ingrese su nombre de usuario: ', (nombreUsuario: string) => {
+    // Convertir el nombre de usuario a mayúsculas
+    nombreUsuario = nombreUsuario.toUpperCase().trim();
+
+    // Verificar si el nombre de usuario ya existe
+    if (usuarios[nombreUsuario]) {
+      console.log('El usuario ya existe, ingrese otro nombre de usuario.');
+      registrarUsuario();
+    } else {
+      rl.question('Ingrese su correo electrónico: ', (correo: string) => {
+        // Verificar si el correo electrónico es válido
+        if (!validarCorreo(correo)) {
+          console.log('El correo electrónico no es válido, ingrese otro correo.');
+          registrarUsuario();
+        } else if (Object.values(usuarios).some(user => user.correo === correo)) {
+          console.log('El correo electrónico ya existe, ingrese otro correo.');
+          registrarUsuario();
+        } else {
+          rl.question('Ingrese su contraseña (máx. 6 dígitos): ', (contrasena: string) => {
+            // Verificar si la contraseña es válida
+            if (!validarContrasena(contrasena)) {
+              console.log('La contraseña no es válida, ingrese otra contraseña.');
+              registrarUsuario();
+            } else {
+              // Almacenar el usuario en la estructura de datos
+              usuarios[nombreUsuario] = { correo, contrasena };
+              console.log('Usuario registrado exitosamente!');
+              rl.question('Desea registrar otro usuario? (S/N) ', (respuesta: string) => {
+                if (respuesta.toUpperCase() === 'S') {
+                  registrarUsuario();
+                } else {
+                  rl.close();
+                }
+              });
+            }
+          });
+        }
+      });
+    }
+  });
+}
+
+// Iniciar el proceso de registro de usuario
+registrarUsuario();
 
 
 

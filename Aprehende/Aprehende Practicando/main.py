@@ -91,29 +91,22 @@ mostrar_resultados(*numeros);
 # not True = False
 
 def mostrar_tabla():
+  a = True
+  b = False
   print('AND')
-  an = False and False
-  print(f'False and False = {an}')
-  an = False and True
-  print(f'False and True = {an}')
-  an = True and False
-  print(f'True and False = {an}')
-  an = True and True
-  print(f'True and True = {an}')
+  print(f'{a} and {a} = {a and a}')
+  print(f'{a} and {b} = {a and b}')
+  print(f'{b} and {a} = {b and a}')
+  print(f'{b} and {b} = {b and b}')
   print('OR')
-  an = False or False
-  print(f'False or False = {an}')
-  an = False or True
-  print(f'False or True = {an}')
-  an = True or False
-  print(f'True or False = {an}')
-  an = True or True
-  print(f'True or True = {an}')
+  print(f'{a} or {a} = {a or a}')
+  print(f'{a} or {b} = {a or b}')
+  print(f'{b} or {a} = {b or a}')
+  print(f'{b} or {b} = {b or b}')
   print('NOT')
-  an = not False
-  print(f'not False = {an}')
-  an = not True
-  print(f'not True = {an}')
+  print(f'not {a} = {not a}')
+  print(f'not {b} = {not b}')
+  
 
 mostrar_tabla();
 
