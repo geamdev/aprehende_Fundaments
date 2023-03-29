@@ -47,7 +47,7 @@ namespace Operadores
       // Igual que
       bool igualQue = 8 == 7;
       Console.WriteLine($"8 == 7 es: {igualQue}");
-      igualQue = 'Hola' == 'Hola';
+      igualQue = "Hola" == "Hola";
       Console.WriteLine($"'Hola' == 'Hola' es: {igualQue}");
       igualQue = "hola" == "Hola";
       Console.WriteLine($"'hola' == 'Hola' es: {igualQue}");
@@ -56,9 +56,9 @@ namespace Operadores
       bool diferenteQue = 8 != 5;
       Console.WriteLine($"8 != 5 es: {diferenteQue}");
       diferenteQue = 'Hola' != 'Hola';
-      Console.WriteLine($"'Hola' != 'Hola' es: {diferenteQue}");
+      Console.WriteLine($"Hola != Hola es: {diferenteQue}");
       diferenteQue = "hola" != "Hola";
-      Console.WriteLine($"'hola' != 'Hola' es: {diferenteQue}");
+      Console.WriteLine($"hola != Hola es: {diferenteQue}");
 
       // Mayor
       bool mayor = 8 > 5;

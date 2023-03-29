@@ -8,7 +8,7 @@ namespace Consola
   {
     static void Main(string[] args)
     {
-      Consolo.WriteLine("Hola mundo")
+      Console.WriteLine("Hola mundo");
     }
   }
 }
