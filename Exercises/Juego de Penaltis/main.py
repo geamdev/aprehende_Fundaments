@@ -33,6 +33,7 @@ Tiros
 **               |                 |                **
 
 Tiros
+O
 
 """
 
@@ -42,11 +43,11 @@ Tiros
 ******************************************************
 ******************************************************
 **               |                 |                **
-**      X        |        2        |         3      **
+**      1        |        2        |         3      **
 **               |                 |                **
 **--------------------------------------------------**
 **               |                 |                **
-**      4        |        5        |         6      **
+**      4        |        X        |         6      **
 **               |                 |                **
 Tiros
 O
@@ -59,10 +60,9 @@ import os
 
 def mostrar_tiros(posiciones, tiros):
     for i in range(6):
-        if str(i+1) in [t[0] for t in tiros]:
-            print('O' if posiciones[i] == 'O' else 'X', end='')
-        else:
-            print(' ', end='')
+        print('O' if posiciones[i] == 'O' and str(i+1) in [t[0] for t in tiros] else
+              'X' if posiciones[i] == 'X' and str(i+1) in [t[0] for t in tiros] else
+              ' ', end='')
         if i == 2 or i == 5:
             print('')
     print('Tiros')
@@ -83,7 +83,6 @@ def mostrar_tabla_tiros(posiciones, tiros):
     mostrar_tiros(posiciones, tiros)
     print('')
 
-
 def preguntar_direccion():
     while True:
         try:
@@ -98,19 +97,16 @@ def preguntar_direccion():
             print('Por favor, ingrese una posicion valida.')
     return direccion
 
-
 def adivinar_posicion():
     return random.randint(1, 6)
 
-
 def simular_tiro(direccion_cpu, direccion_jugador, posiciones, tiros):
     if direccion_cpu == direccion_jugador:
-        posiciones[direccion_jugador - 1] = 'O'
-        tiros.append((str(direccion_jugador), 'GOL'))
-    else:
         posiciones[direccion_jugador - 1] = 'X'
         tiros.append((str(direccion_jugador), 'Fallo'))
-
+    else:
+        posiciones[direccion_jugador - 1] = 'O'
+        tiros.append((str(direccion_jugador), 'Gol'))
 
 def mostrar_tiro(posiciones, tiros):
     mostrar_tabla_tiros(posiciones, tiros)
@@ -118,28 +114,31 @@ def mostrar_tiro(posiciones, tiros):
     mostrar_tabla_tiros(['1', '2', '3', '4', '5', '6'], tiros)
     limpiar_pantalla()
 
-
 def limpiar_pantalla():
     os.system('clear')
-
 
 def jugar():
     posiciones = ['1', '2', '3', '4', '5', '6']
     tiros = []
     tiros_fallidos = 0
-    for _ in range(5):
+    goles_anotados = 0
+    while True:
         direccion_cpu = adivinar_posicion()
         direccion_jugador = preguntar_direccion()
         simular_tiro(direccion_cpu, direccion_jugador, posiciones, tiros)
-        if tiros[-1][1] == 'Fallo':
-            tiros_fallidos += 1
         mostrar_tiro(posiciones, tiros)
-    mostrar_tabla_tiros(posiciones, tiros)
-    if tiros_fallidos > 2:
-        print('Has perdido!')
-    else:
-        print('Has ganado!')
-
+        if posiciones[direccion_jugador - 1] == 'X':
+            tiros_fallidos += 1
+        else:
+            goles_anotados += 1
+        if tiros_fallidos == 3:
+            mostrar_tabla_tiros(posiciones, tiros)
+            print('Perdiste')
+            break
+        if goles_anotados == 3:
+            mostrar_tabla_tiros(posiciones, tiros)
+            print('Ganaste')
+            break
 
 if __name__ == '__main__':
     jugar()
