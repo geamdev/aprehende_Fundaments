@@ -1,16 +1,10 @@
-import { useState } from "react";
-import { TablaArco } from "./Components";
-import { Form } from "./Components";
+import Layout from "./Components/Layout";
 
 function App() {
 
   return (
     <div>
-      <h1 className="font-bold text-3xl m-5">
-        Game of Penalties
-      </h1>
-      <TablaArco />
-      <Form />
+      <Layout />
     </div>
   );
 }
